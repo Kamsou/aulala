@@ -5,7 +5,7 @@ const activeTab = ref<'calendar' | 'history'>('calendar')
 <template>
   <div class="page">
     <div class="page__brand fade-in">
-      <span class="page__brand-name">ausan</span>
+      <span class="page__brand-name">aulala</span>
       <span class="page__brand-desc">suivi de cycle</span>
     </div>
 

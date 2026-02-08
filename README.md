@@ -1,4 +1,4 @@
-# Ausan
+# Aulala
 
 Menstrual cycle tracking app. Built for personal use, designed to scale.
 
@@ -35,9 +35,9 @@ npm install
 ### 2. Create the database
 
 ```bash
-turso db create ausan
-turso db show ausan --url       # copy the URL
-turso db tokens create ausan    # copy the token
+turso db create aulala
+turso db show aulala --url       # copy the URL
+turso db tokens create aulala    # copy the token
 ```
 
 ### 3. Configure environment
@@ -49,7 +49,7 @@ cp .env.example .env
 Fill in `.env`:
 
 ```
-NUXT_TURSO_DATABASE_URL=libsql://ausan-xxx.turso.io
+NUXT_TURSO_DATABASE_URL=libsql://aulala-xxx.turso.io
 NUXT_TURSO_AUTH_TOKEN=eyJ...
 NUXT_BETTER_AUTH_SECRET=<run: openssl rand -base64 32>
 BETTER_AUTH_URL=http://localhost:3000

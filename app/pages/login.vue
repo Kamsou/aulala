@@ -34,7 +34,7 @@ async function handleSubmit() {
 <template>
   <div class="login">
     <div class="login__card">
-      <h1 class="login__brand">ausan</h1>
+      <h1 class="login__brand">aulala</h1>
       <p class="login__subtitle">suivi de cycle</p>
 
       <div v-if="!sent" class="login__form">
