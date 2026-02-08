@@ -1,0 +1,279 @@
+/* ============================================
+   AUSAN — Design System
+   ============================================ */
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ============================================
+   Design Tokens
+   ============================================ */
+:root {
+  /* Colors */
+  --color-bg:            #f5f3f8;
+  --color-bg-warm:       #eee9f3;
+  --color-surface:       rgba(255, 255, 255, 0.65);
+  --color-surface-hover: rgba(255, 255, 255, 0.85);
+
+  --color-accent:        #6b5b95;
+  --color-accent-light:  #8d7db5;
+  --color-accent-dark:   #524578;
+
+  --color-lilac:         #b8a9c9;
+  --color-soft-violet:   #ddd5e8;
+  --color-warm-rose:     #c9919e;
+
+  --color-text-primary:   #1e1a2a;
+  --color-text-secondary: #6b6580;
+  --color-text-muted:     #9e96ad;
+
+  --color-border:        rgba(255, 255, 255, 0.45);
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+
+  /* Gradients */
+  --gradient-period:     linear-gradient(135deg, #6b5b95 0%, #8d7db5 50%, #b8a9c9 100%);
+  --gradient-prediction: linear-gradient(135deg, #ddd5e8 0%, #ece7f2 100%);
+  --gradient-surface:    linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
+  --gradient-accent:     linear-gradient(135deg, #6b5b95 0%, #c9919e 100%);
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'DM Sans', system-ui, -apple-system, sans-serif;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+
+  --leading-tight:   1.2;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semi:    600;
+  --weight-bold:    700;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border Radius */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-xl:   32px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:    0 1px 3px rgba(30, 26, 42, 0.04),
+                  0 1px 2px rgba(30, 26, 42, 0.06);
+  --shadow-md:    0 4px 12px rgba(30, 26, 42, 0.06),
+                  0 2px 4px rgba(30, 26, 42, 0.04);
+  --shadow-lg:    0 8px 24px rgba(30, 26, 42, 0.08),
+                  0 4px 8px rgba(30, 26, 42, 0.04);
+  --shadow-glass: 0 8px 32px rgba(30, 26, 42, 0.08),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  /* Transitions */
+  --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:     cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   500ms;
+
+  /* Z-index */
+  --z-base:    1;
+  --z-above:   10;
+  --z-modal:   100;
+  --z-overlay: 1000;
+
+  /* Layout */
+  --max-width:        430px;
+  --safe-area-top:    env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --touch-min:        44px;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(107, 91, 149, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(184, 169, 201, 0.06) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-semi);
+  line-height: var(--leading-tight);
+}
+
+/* ============================================
+   App Shell
+   ============================================ */
+.app-shell {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+  position: relative;
+}
+
+/* ============================================
+   Glassmorphism
+   ============================================ */
+.glass {
+  background: var(--gradient-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glass);
+}
+
+.glass--subtle {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+.fade-in {
+  animation: fadeIn var(--duration-normal) var(--ease-out) both;
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--duration-normal) var(--ease-out) both;
+}
+
+.stagger-children > * {
+  animation: fadeInUp var(--duration-normal) var(--ease-out) both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+
+/* ============================================
+   Interactive States
+   ============================================ */
+.tap-target {
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
+}
+
+.tap-target:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: var(--radius-full);
+}
