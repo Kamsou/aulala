@@ -51,6 +51,11 @@ const arcPath = computed(() => {
   const largeArc = p > 0.5 ? 1 : 0
   return `M ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2}`
 })
+
+const arcLength = computed(() => {
+  const p = cycleProgress.value ?? 0
+  return p * 2 * Math.PI * 70
+})
 </script>
 
 <template>
@@ -89,6 +94,8 @@ const arcPath = computed(() => {
             :stroke="isLate ? 'var(--color-warm-rose)' : 'url(#progressGradient)'"
             stroke-width="4"
             stroke-linecap="round"
+            class="dashboard__arc"
+            :style="{ strokeDasharray: arcLength, strokeDashoffset: arcLength }"
           />
           <defs>
             <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -103,10 +110,13 @@ const arcPath = computed(() => {
         </div>
       </div>
 
-      <p class="dashboard__context" :class="{ 'dashboard__context--late': isLate }">
+      <div v-if="nextDateLabel && !isLate" class="dashboard__next">
+        <span class="dashboard__next-label">prochaines regles</span>
+        <span class="dashboard__next-date">{{ nextDateLabel }}</span>
+      </div>
+      <p v-else class="dashboard__context" :class="{ 'dashboard__context--late': isLate }">
         {{ isLate ? 'regles en retard' : 'avant vos prochaines regles' }}
       </p>
-      <p v-if="nextDateLabel && !isLate" class="dashboard__next-date">{{ nextDateLabel }}</p>
 
       <div class="dashboard__meta">
         <div class="dashboard__chip">
@@ -130,7 +140,7 @@ const arcPath = computed(() => {
 
 <style scoped>
 .dashboard {
-  padding: var(--space-6) 0 var(--space-2);
+  padding: var(--space-4) 0 var(--space-2);
 }
 
 .dashboard__loading {
@@ -142,8 +152,8 @@ const arcPath = computed(() => {
 }
 
 .dashboard__loading-ring {
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
   animation: pulse 1.5s ease-in-out infinite;
   opacity: 0.3;
 }
@@ -155,27 +165,16 @@ const arcPath = computed(() => {
 
 .dashboard__empty {
   text-align: center;
-  padding: var(--space-4) var(--space-6);
-  border: 1px dashed var(--color-lilac);
-  border-radius: var(--radius-lg);
-  animation: breathe 3s ease-in-out infinite;
+  padding: var(--space-5) var(--space-6);
+  background: rgba(107, 91, 149, 0.05);
+  border: 1px solid rgba(107, 91, 149, 0.12);
+  border-radius: var(--radius-md);
 }
 
 .dashboard__empty-text {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
-}
-
-@keyframes breathe {
-  0%, 100% {
-    border-color: var(--color-border-subtle);
-    box-shadow: 0 0 0 0 transparent;
-  }
-  50% {
-    border-color: var(--color-lilac);
-    box-shadow: 0 0 12px -4px var(--color-lilac);
-  }
 }
 
 .dashboard__hero {
@@ -187,14 +186,21 @@ const arcPath = computed(() => {
 
 .dashboard__ring {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
 }
 
 .dashboard__ring-svg {
   width: 100%;
   height: 100%;
-  transform: rotate(0deg);
+}
+
+.dashboard__arc {
+  animation: drawArc 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes drawArc {
+  to { stroke-dashoffset: 0; }
 }
 
 .dashboard__ring-content {
@@ -208,36 +214,68 @@ const arcPath = computed(() => {
 
 .dashboard__number {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 3.25rem;
   font-weight: var(--weight-bold);
   line-height: 1;
   color: var(--color-text-primary);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
+  animation: numberPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+}
+
+@keyframes numberPop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
 }
 
 .dashboard__unit {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
-  margin-top: 2px;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+  animation: fadeIn 0.5s ease-out 0.6s backwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
 }
 
 .dashboard__context {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
+  font-weight: var(--weight-medium);
+}
+
+.dashboard__next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.dashboard__next-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
 }
 
 .dashboard__next-date {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  font-weight: var(--weight-medium);
-  margin-top: calc(-1 * var(--space-1));
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
 }
 
 .dashboard__meta {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-top: var(--space-1);
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-sm);
 }
 
 .dashboard__chip {
@@ -253,7 +291,7 @@ const arcPath = computed(() => {
 
 .dashboard__chip-value {
   font-size: var(--text-xs);
-  font-weight: var(--weight-semi);
+  font-weight: var(--weight-bold);
   color: var(--color-text-primary);
 }
 
@@ -262,7 +300,7 @@ const arcPath = computed(() => {
   height: 3px;
   border-radius: var(--radius-full);
   background: var(--color-text-muted);
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .dashboard__chip--confidence {
@@ -270,14 +308,14 @@ const arcPath = computed(() => {
 }
 
 .dashboard__confidence-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
 .dashboard__ring--late .dashboard__ring-svg {
-  filter: drop-shadow(0 0 8px rgba(201, 145, 158, 0.3));
+  filter: drop-shadow(0 0 10px rgba(201, 145, 158, 0.35));
 }
 
 .dashboard__number--late {
@@ -286,15 +324,15 @@ const arcPath = computed(() => {
 
 .dashboard__context--late {
   color: var(--color-warm-rose);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-semi);
 }
 
 .confidence--haute .dashboard__confidence-dot {
-  background: #5cb176;
+  background: #4aa366;
 }
 
 .confidence--moyenne .dashboard__confidence-dot {
-  background: var(--color-lilac);
+  background: var(--color-accent);
 }
 
 .confidence--basse .dashboard__confidence-dot {

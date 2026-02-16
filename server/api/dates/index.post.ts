@@ -15,6 +15,11 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Format de date invalide (YYYY-MM-DD)' })
   }
 
+  const parsed = new Date(body.date + 'T00:00:00')
+  if (isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== body.date) {
+    throw createError({ statusCode: 400, statusMessage: 'Date invalide' })
+  }
+
   const today = new Date().toISOString().slice(0, 10)
   if (body.date > today) {
     throw createError({ statusCode: 400, statusMessage: 'Date dans le futur non autorisee' })

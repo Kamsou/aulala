@@ -15,6 +15,11 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Format de date invalide' })
   }
 
+  const parsed = new Date(date + 'T00:00:00')
+  if (isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== date) {
+    throw createError({ statusCode: 400, statusMessage: 'Date invalide' })
+  }
+
   const db = useDb()
   await db
     .delete(periodDates)

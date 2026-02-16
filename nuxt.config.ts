@@ -27,7 +27,10 @@ export default defineNuxtConfig({
         { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
       ],
-      title: 'Aulala - Mon Cycle',
+      title: 'Aulala | Mon Cycle',
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
     },
   },
 
@@ -44,7 +47,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Aulala - Mon Cycle',
+      name: 'Aulala | Mon Cycle',
       short_name: 'Aulala',
       description: 'Suivi de cycle menstruel simple et élégant',
       theme_color: '#f5f3f8',

@@ -20,7 +20,10 @@ export function useAuth() {
       plugins: [
         magicLink({
           sendMagicLink: async ({ email, url }) => {
-            console.log(`\n[Magic Link] → ${email}\n${url}\n`)
+            if (process.dev) {
+              console.log(`\n[Magic Link] → ${email}\n${url}\n`)
+            }
+            // TODO: envoyer l'email en production (Resend, SES, etc.)
           },
         }),
       ],

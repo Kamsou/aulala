@@ -87,10 +87,9 @@ function formatShortDate(ds: string): string {
 
 .hist__label {
   display: block;
-  font-size: 11px;
-  font-weight: var(--weight-medium);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
   color: var(--color-text-muted);
-  text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: var(--space-3);
 }
@@ -105,7 +104,7 @@ function formatShortDate(ds: string): string {
   align-items: center;
   justify-content: space-between;
   padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .hist__row:last-child {
@@ -119,8 +118,8 @@ function formatShortDate(ds: string): string {
 }
 
 .hist__dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: var(--radius-full);
   background: var(--color-accent);
   flex-shrink: 0;
@@ -132,49 +131,51 @@ function formatShortDate(ds: string): string {
 
 .hist__date {
   font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-semi);
   color: var(--color-text-primary);
 }
 
 .hist__gap {
-  font-size: var(--text-xs);
+  font-size: 11px;
+  font-weight: var(--weight-semi);
   color: var(--color-text-muted);
-  background: var(--color-bg-warm);
-  padding: 1px var(--space-2);
+  background: rgba(0, 0, 0, 0.03);
+  padding: 2px var(--space-2);
   border-radius: var(--radius-full);
 }
 
 .hist__badge {
   font-size: 11px;
-  font-weight: var(--weight-medium);
-  padding: 2px var(--space-2);
+  font-weight: var(--weight-semi);
+  padding: 3px var(--space-3);
   border-radius: var(--radius-full);
   text-transform: capitalize;
 }
 
 .hist__badge--haute {
-  background: rgba(92, 177, 118, 0.1);
-  color: #3d8b55;
+  background: rgba(74, 163, 102, 0.1);
+  color: #3a8550;
 }
 
 .hist__badge--moyenne {
-  background: rgba(184, 169, 201, 0.2);
-  color: var(--color-accent-dark);
+  background: rgba(107, 91, 149, 0.1);
+  color: var(--color-accent);
 }
 
 .hist__badge--basse {
-  background: rgba(201, 145, 158, 0.15);
-  color: #8b5a6a;
+  background: rgba(201, 145, 158, 0.12);
+  color: #9b5065;
 }
 
 .hist__delete {
   color: var(--color-text-muted);
-  opacity: 0.5;
-  transition: opacity var(--duration-fast) var(--ease-out);
+  opacity: 0.4;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
 }
 
 .hist__delete:active {
   opacity: 1;
-  color: var(--color-accent);
+  color: var(--color-warm-rose);
 }
 </style>
