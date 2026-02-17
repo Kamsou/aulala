@@ -31,6 +31,7 @@ export default defineNuxtConfig({
       title: 'Aulala | Mon Cycle',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
     },
   },
@@ -66,7 +67,12 @@ export default defineNuxtConfig({
           src: '/pwa-icon-512x512.png',
           sizes: '512x512',
           type: 'image/png',
-          purpose: 'any maskable',
+        },
+        {
+          src: '/pwa-icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
         },
       ],
     },
