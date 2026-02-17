@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <path d="M12 2.5C12 2.5 5 11 5 15.5a7 7 0 1 0 14 0C19 11 12 2.5 12 2.5Z" fill="#8b1a1a" opacity="0.15"/>
-  <path d="M12 2.5C12 2.5 5 11 5 15.5a7 7 0 1 0 14 0C19 11 12 2.5 12 2.5Z" stroke="#8b1a1a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <defs>
+    <linearGradient id="drop" x1="0.3" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#ff3b4a"/>
+      <stop offset="100%" stop-color="#b01030"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(12, 12.2) rotate(-8) translate(-12, -12.2)">
+    <path d="M12 2.5C12 2.5 5 11 5 15.5a7 7 0 1 0 14 0C19 11 12 2.5 12 2.5Z" fill="url(#drop)"/>
+    <ellipse cx="9.5" cy="12.5" rx="1.5" ry="2.2" fill="white" opacity="0.18" transform="rotate(-15, 9.5, 12.5)"/>
+  </g>
 </svg>
