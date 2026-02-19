@@ -28,7 +28,7 @@ export default defineNuxtConfig({
         { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
       ],
-      title: 'Aukarmin | Mon Cycle',
+      title: 'auklm | Mon Cycle',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
@@ -49,8 +49,8 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Aukarmin | Mon Cycle',
-      short_name: 'Aukarmin',
+      name: 'auklm | Mon Cycle',
+      short_name: 'auklm',
       description: 'Suivi de cycle menstruel simple et élégant',
       theme_color: '#f5f3f8',
       background_color: '#f5f3f8',

@@ -19,7 +19,7 @@ async function logout() {
     <div class="page__header fade-in">
       <div class="page__brand">
         <img src="/drop.svg" width="14" height="14" alt="" class="page__brand-icon" />
-        <span class="page__brand-name">aukarmin</span>
+        <span class="page__brand-name">auklm</span>
         <span class="page__brand-desc">suivi de cycle</span>
       </div>
       <button class="page__info-btn" @click="showAbout = true" aria-label="A propos">
@@ -66,7 +66,7 @@ async function logout() {
             </button>
 
             <img src="/drop.svg" width="22" height="22" alt="" class="about__icon" />
-            <h2 class="about__title">aukarmin</h2>
+            <h2 class="about__title">auklm</h2>
             <p class="about__subtitle">suivi de cycle</p>
 
             <p class="about__body">

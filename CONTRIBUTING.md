@@ -1,4 +1,4 @@
-# Contribuer a Aukarmin
+# Contribuer a auklm
 
 Merci de vouloir contribuer ! Voici les regles pour que tout se passe bien.
 

@@ -45,7 +45,7 @@ async function handleSubmit() {
 
     <div class="login__card">
       <div class="login__brand-row">
-        <h1 class="login__brand">aukarmin</h1>
+        <h1 class="login__brand">auklm</h1>
         <img src="/drop.svg" width="24" height="24" alt="" class="login__icon" />
       </div>
       <p class="login__subtitle">suivi de cycle</p>

@@ -1,4 +1,4 @@
-# Aukarmin
+# auklm
 
 Menstrual cycle tracking app.
 
@@ -36,9 +36,9 @@ npm install
 ### 2. Create the database
 
 ```bash
-turso db create aukarmin
-turso db show aukarmin --url       # copy the URL
-turso db tokens create aukarmin    # copy the token
+turso db create auklm
+turso db show auklm --url       # copy the URL
+turso db tokens create auklm    # copy the token
 ```
 
 ### 3. Configure environment
@@ -50,7 +50,7 @@ cp .env.example .env
 Fill in `.env`:
 
 ```
-NUXT_TURSO_DATABASE_URL=libsql://aukarmin-xxx.turso.io
+NUXT_TURSO_DATABASE_URL=libsql://auklm-xxx.turso.io
 NUXT_TURSO_AUTH_TOKEN=eyJ...
 NUXT_BETTER_AUTH_SECRET=<run: openssl rand -base64 32>
 NUXT_RESEND_API_KEY=re_...
