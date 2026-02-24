@@ -1,22 +1,29 @@
 <script setup lang="ts">
+import { authClient } from '~/utils/auth-client'
+
 definePageMeta({
   layout: false,
 })
 
 const isStandalone = ref(false)
 
-onMounted(() => {
+onMounted(async () => {
   isStandalone.value = window.matchMedia('(display-mode: standalone)').matches
     || (navigator as any).standalone === true
 
   if (isStandalone.value) {
     navigateTo('/')
+    return
   }
-})
 
-function openInApp() {
-  window.location.href = '/'
-}
+  try {
+    const { data } = await authClient.oneTimeToken.generate()
+    if (data?.token) {
+      localStorage.setItem('auklm-ott', data.token)
+    }
+  }
+  catch {}
+})
 </script>
 
 <template>

@@ -13,9 +13,28 @@ export default defineNuxtRouteMiddleware(async (to) => {
     headers: useRequestHeaders(['cookie']),
   })
 
-  if (!session.value?.user) {
-    return navigateTo('/login')
+  if (session.value?.user) {
+    sessionUser.value = session.value.user
+    return
   }
 
-  sessionUser.value = session.value.user
+  if (import.meta.client) {
+    const pendingToken = localStorage.getItem('auklm-ott')
+    if (pendingToken) {
+      localStorage.removeItem('auklm-ott')
+      try {
+        const res = await $fetch<{ user?: { id: string } }>('/api/auth/one-time-token/verify', {
+          method: 'POST',
+          body: { token: pendingToken },
+        })
+        if (res?.user) {
+          sessionUser.value = res.user
+          return
+        }
+      }
+      catch {}
+    }
+  }
+
+  return navigateTo('/login')
 })

@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { magicLink } from 'better-auth/plugins'
+import { magicLink, oneTimeToken } from 'better-auth/plugins'
 import { Resend } from 'resend'
 import { useDb } from './db'
 
@@ -56,6 +56,7 @@ export function useAuth() {
             }
           },
         }),
+        oneTimeToken(),
       ],
     })
   }
