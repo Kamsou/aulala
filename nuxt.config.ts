@@ -16,8 +16,6 @@ export default defineNuxtConfig({
     betterAuth: {
       secret: '',
     },
-    resendApiKey: '',
-    replyToEmail: '',
   },
 
   app: {

@@ -5,29 +5,14 @@ definePageMeta({
   layout: false,
 })
 
-const email = ref('')
-const sent = ref(false)
-const loading = ref(false)
-const error = ref('')
+const loading = ref('')
 
-async function handleSubmit() {
-  if (!email.value || loading.value) return
-  loading.value = true
-  error.value = ''
-
-  const { error: authError } = await authClient.signIn.magicLink({
-    email: email.value,
-    callbackURL: '/auth-redirect',
+async function signIn(provider: 'google' | 'apple') {
+  loading.value = provider
+  await authClient.signIn.social({
+    provider,
+    callbackURL: '/',
   })
-
-  loading.value = false
-
-  if (authError) {
-    error.value = 'Une erreur est survenue. Reessayez.'
-    return
-  }
-
-  sent.value = true
 }
 </script>
 
@@ -54,40 +39,30 @@ async function handleSubmit() {
         Suis ton cycle menstruel, enregistre tes dates et obtiens des estimations personnalisees.
       </p>
 
-      <div v-if="!sent" class="login__form">
-        <p class="login__text">Entre ton email pour recevoir un lien de connexion.</p>
-        <form @submit.prevent="handleSubmit">
-          <input
-            v-model="email"
-            type="email"
-            placeholder="email@exemple.com"
-            class="login__input"
-            autocomplete="email"
-            required
-          />
-          <button
-            type="submit"
-            class="login__button"
-            :disabled="loading || !email"
-          >
-            {{ loading ? 'Envoi...' : 'Recevoir le lien' }}
-          </button>
-        </form>
-        <p v-if="error" class="login__error">{{ error }}</p>
-      </div>
-
-      <div v-else class="login__sent">
-        <div class="login__sent-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-            <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <div class="login__buttons">
+        <button
+          class="login__button login__button--google"
+          :disabled="!!loading"
+          @click="signIn('google')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
           </svg>
-        </div>
-        <p class="login__sent-title">Lien envoyé</p>
-        <p class="login__sent-text">
-          Vérifie ta boite mail <strong>{{ email }}</strong> et clique sur le lien pour te connecter.
-        </p>
-        <button class="login__retry" @click="sent = false; email = ''">
-          Utiliser une autre adresse
+          {{ loading === 'google' ? 'Connexion...' : 'Continuer avec Google' }}
+        </button>
+
+        <button
+          class="login__button login__button--apple"
+          :disabled="!!loading"
+          @click="signIn('apple')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+          </svg>
+          {{ loading === 'apple' ? 'Connexion...' : 'Continuer avec Apple' }}
         </button>
       </div>
     </div>
@@ -240,51 +215,23 @@ async function handleSubmit() {
   line-height: var(--leading-relaxed);
 }
 
-.login__text {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-6);
-  line-height: var(--leading-relaxed);
+/* --- Buttons --- */
+.login__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
-/* --- Input --- */
-.login__input {
-  width: 100%;
-  padding: var(--space-4);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  color: var(--color-text-primary);
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(120, 90, 170, 0.18);
-  border-radius: var(--radius-md);
-  outline: none;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: border-color var(--duration-fast) var(--ease-out),
-              background var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.login__input:focus {
-  border-color: rgba(120, 90, 170, 0.35);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 0 3px rgba(120, 90, 170, 0.1);
-}
-
-.login__input::placeholder {
-  color: var(--color-text-muted);
-}
-
-/* --- Button --- */
 .login__button {
   width: 100%;
-  margin-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
   padding: var(--space-4);
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: var(--weight-semi);
-  color: white;
-  background: var(--color-accent);
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
@@ -302,51 +249,17 @@ async function handleSubmit() {
   cursor: not-allowed;
 }
 
-.login__error {
-  font-size: var(--text-xs);
-  color: var(--color-warm-rose);
-  margin-top: var(--space-3);
-}
-
-/* --- Sent state --- */
-.login__sent {
-  animation: fadeInUp var(--duration-normal) var(--ease-out) both;
-}
-
-.login__sent-icon {
-  margin-bottom: var(--space-4);
-}
-
-.login__sent-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  font-weight: var(--weight-semi);
+.login__button--google {
   color: var(--color-text-primary);
-  margin-bottom: var(--space-2);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(120, 90, 170, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.login__sent-text {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--leading-relaxed);
-  margin-bottom: var(--space-6);
-}
-
-.login__sent-text strong {
-  color: var(--color-text-primary);
-  font-weight: var(--weight-semi);
-}
-
-.login__retry {
-  font-size: var(--text-xs);
-  color: var(--color-accent);
-  font-weight: var(--weight-medium);
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: rgba(107, 91, 149, 0.3);
+.login__button--apple {
+  color: white;
+  background: #1e1a2a;
 }
 
 /* --- Drift keyframes --- */
