@@ -15,7 +15,7 @@ export function useAuth() {
     _auth = betterAuth({
       database: drizzleAdapter(db, { provider: 'sqlite' }),
       secret: config.betterAuth.secret,
-      baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
+      baseURL: process.env.BETTER_AUTH_URL,
       plugins: [
         emailOTP({
           otpLength: 6,
