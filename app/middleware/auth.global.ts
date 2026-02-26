@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  if (to.path === '/login' || to.path.startsWith('/api/auth')) {
+  if (to.path === '/login' || to.path === '/auth-callback' || to.path.startsWith('/api/auth')) {
     return
   }
 
