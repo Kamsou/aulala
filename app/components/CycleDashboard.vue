@@ -75,7 +75,7 @@ const arcLength = computed(() => {
       </p>
     </div>
 
-    <div v-else class="dashboard__hero">
+    <div v-else class="dashboard__hero glass--subtle">
       <div class="dashboard__ring" :class="{ 'dashboard__ring--late': isLate }">
         <svg viewBox="0 0 160 160" class="dashboard__ring-svg">
           <circle
@@ -137,7 +137,8 @@ const arcLength = computed(() => {
 
 <style scoped>
 .dashboard {
-  padding: var(--space-4) 0 var(--space-2);
+  padding: var(--space-2) 0;
+  flex-shrink: 0;
 }
 
 .dashboard__loading {
@@ -162,10 +163,10 @@ const arcLength = computed(() => {
 
 .dashboard__empty {
   text-align: center;
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-8) var(--space-6);
   background: rgba(107, 91, 149, 0.05);
-  border: 1px solid rgba(107, 91, 149, 0.12);
-  border-radius: var(--radius-md);
+  border: 1px solid rgba(107, 91, 149, 0.10);
+  border-radius: var(--radius-lg);
 }
 
 .dashboard__empty-text {
@@ -179,12 +180,13 @@ const arcLength = computed(() => {
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
+  padding: var(--space-5) var(--space-5) var(--space-4);
 }
 
 .dashboard__ring {
   position: relative;
-  width: 170px;
-  height: 170px;
+  width: 160px;
+  height: 160px;
 }
 
 .dashboard__ring-svg {
@@ -211,7 +213,7 @@ const arcLength = computed(() => {
 
 .dashboard__number {
   font-family: var(--font-heading);
-  font-size: 3.25rem;
+  font-size: 3rem;
   font-weight: var(--weight-bold);
   line-height: 1;
   color: var(--color-text-primary);
@@ -248,7 +250,7 @@ const arcLength = computed(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
 .dashboard__next-label {
@@ -269,10 +271,11 @@ const arcLength = computed(() => {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-top: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: var(--radius-sm);
+  margin-top: var(--space-1);
+  padding: var(--space-3) var(--space-5);
+  background: rgba(107, 91, 149, 0.04);
+  border: 1px solid rgba(107, 91, 149, 0.06);
+  border-radius: var(--radius-full);
 }
 
 .dashboard__chip {

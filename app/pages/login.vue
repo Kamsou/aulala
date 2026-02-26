@@ -3,6 +3,7 @@ import { authClient } from '~/utils/auth-client'
 
 definePageMeta({
   layout: false,
+  pageTransition: false,
 })
 
 const step = ref<1 | 2>(1)
@@ -138,7 +139,6 @@ async function verifyOtp() {
   overflow: hidden;
 }
 
-/* --- Blobs --- */
 .login__bg {
   position: absolute;
   inset: -30%;
@@ -228,7 +228,6 @@ async function verifyOtp() {
   animation: drift2 14s ease-in-out 5s infinite alternate;
 }
 
-/* --- Card --- */
 .login__card {
   position: relative;
   z-index: 1;
@@ -271,7 +270,6 @@ async function verifyOtp() {
   line-height: var(--leading-relaxed);
 }
 
-/* --- Form --- */
 .login__form {
   display: flex;
   flex-direction: column;
@@ -280,21 +278,23 @@ async function verifyOtp() {
 
 .login__input {
   width: 100%;
-  padding: var(--space-4);
+  padding: var(--space-4) var(--space-5);
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--color-text-primary);
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(120, 90, 170, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(120, 90, 170, 0.15);
   border-radius: var(--radius-md);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   outline: none;
-  transition: border-color var(--duration-fast) var(--ease-out);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .login__input:focus {
-  border-color: rgba(120, 90, 170, 0.4);
+  border-color: rgba(120, 90, 170, 0.35);
+  box-shadow: 0 0 0 3px rgba(107, 91, 149, 0.08);
 }
 
 .login__input::placeholder {
@@ -342,7 +342,8 @@ async function verifyOtp() {
 
 .login__button--primary {
   color: white;
-  background: #1e1a2a;
+  background: var(--gradient-accent);
+  box-shadow: 0 4px 16px rgba(107, 91, 149, 0.25);
 }
 
 .login__link {
@@ -361,7 +362,6 @@ async function verifyOtp() {
   cursor: not-allowed;
 }
 
-/* --- Drift keyframes --- */
 @keyframes drift1 {
   0%   { transform: translate(0, 0) scale(1); }
   100% { transform: translate(8vw, 6vh) scale(1.1); }

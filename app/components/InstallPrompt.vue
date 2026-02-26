@@ -184,7 +184,6 @@ onMounted(() => {
   transform: scale(0.98);
 }
 
-/* Transition */
 .install-prompt-enter-active,
 .install-prompt-leave-active {
   transition: background var(--duration-normal) var(--ease-out);

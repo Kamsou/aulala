@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const route = useRoute()
+const showTabBar = computed(() => route.path === '/' || route.path === '/account')
+</script>
+
 <template>
   <div class="desktop-block">
     <div class="desktop-block__bg">
@@ -28,6 +33,26 @@
 
   <div class="app-shell">
     <NuxtPage />
+
+    <nav v-if="showTabBar" class="tab-bar">
+      <NuxtLink to="/" class="tab-bar__item" :class="{ 'tab-bar__item--active': route.path === '/' }">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="tab-bar__icon">
+          <circle cx="11" cy="11" r="9" fill="currentColor" class="tab-bar__fill" />
+          <circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M11 6.5V11L14 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="tab-bar__label">Cycle</span>
+      </NuxtLink>
+      <NuxtLink to="/account" class="tab-bar__item" :class="{ 'tab-bar__item--active': route.path === '/account' }">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" class="tab-bar__icon">
+          <circle cx="11" cy="8.5" r="4" fill="currentColor" class="tab-bar__fill" />
+          <circle cx="11" cy="8.5" r="3.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M4.5 18.5C4.5 15.46 7.41 13 11 13C14.59 13 17.5 15.46 17.5 18.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span class="tab-bar__label">Compte</span>
+      </NuxtLink>
+    </nav>
+
     <InstallPrompt />
     <AppToast />
   </div>

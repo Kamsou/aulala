@@ -20,7 +20,7 @@ function formatShortDate(ds: string): string {
 
     <div v-if="predictions.length > 0" class="hist__group">
       <span class="hist__label">Previsions</span>
-      <ul class="hist__list">
+      <ul class="hist__list hist__card">
         <li
           v-for="pred in predictions"
           :key="'p-' + pred.date"
@@ -36,7 +36,7 @@ function formatShortDate(ds: string): string {
 
     <div v-if="history.length > 0" class="hist__group">
       <span class="hist__label">Dates enregistrees</span>
-      <ul class="hist__list">
+      <ul class="hist__list hist__card">
         <li
           v-for="entry in history"
           :key="'h-' + entry.date"
@@ -64,7 +64,16 @@ function formatShortDate(ds: string): string {
 
 <style scoped>
 .hist {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   padding: var(--space-4) 0;
+}
+
+.hist::-webkit-scrollbar {
+  display: none;
 }
 
 .hist__empty {
@@ -84,10 +93,11 @@ function formatShortDate(ds: string): string {
 
 .hist__label {
   display: block;
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semi);
+  font-size: 11px;
+  font-weight: var(--weight-bold);
   color: var(--color-text-muted);
-  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   margin-bottom: var(--space-3);
 }
 
@@ -96,12 +106,25 @@ function formatShortDate(ds: string): string {
   flex-direction: column;
 }
 
+.hist__card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 12px rgba(30, 26, 42, 0.06),
+              0 0 0 1px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
 .hist__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-3) 0;
+  padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.hist__row:active {
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .hist__row:last-child {
@@ -134,17 +157,18 @@ function formatShortDate(ds: string): string {
 
 .hist__gap {
   font-size: 11px;
-  font-weight: var(--weight-semi);
-  color: var(--color-text-muted);
-  background: rgba(0, 0, 0, 0.03);
-  padding: 2px var(--space-2);
+  font-weight: var(--weight-bold);
+  color: var(--color-accent);
+  background: rgba(107, 91, 149, 0.07);
+  padding: 3px var(--space-2);
   border-radius: var(--radius-full);
 }
 
 .hist__badge {
   font-size: 11px;
   font-weight: var(--weight-semi);
-  padding: 3px var(--space-3);
+  padding: 4px var(--space-3);
+  letter-spacing: 0.01em;
   border-radius: var(--radius-full);
   text-transform: capitalize;
 }

@@ -1,8 +1,3 @@
-/* ============================================
-   AULALA — Design System
-   ============================================ */
-
-/* --- Reset --- */
 *,
 *::before,
 *::after {
@@ -34,11 +29,7 @@ ul, ol {
   list-style: none;
 }
 
-/* ============================================
-   Design Tokens
-   ============================================ */
 :root {
-  /* Colors */
   --color-bg:            #f5f3f8;
   --color-bg-warm:       #eee9f3;
   --color-surface:       rgba(255, 255, 255, 0.65);
@@ -59,13 +50,11 @@ ul, ol {
   --color-border:        rgba(255, 255, 255, 0.45);
   --color-border-subtle: rgba(0, 0, 0, 0.06);
 
-  /* Gradients */
   --gradient-period:     linear-gradient(135deg, #6b5b95 0%, #8d7db5 50%, #b8a9c9 100%);
   --gradient-prediction: linear-gradient(135deg, #ddd5e8 0%, #ece7f2 100%);
   --gradient-surface:    linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
   --gradient-accent:     linear-gradient(135deg, #6b5b95 0%, #c9919e 100%);
 
-  /* Typography */
   --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body:    'DM Sans', system-ui, -apple-system, sans-serif;
 
@@ -87,7 +76,6 @@ ul, ol {
   --weight-semi:    600;
   --weight-bold:    700;
 
-  /* Spacing */
   --space-1:  0.25rem;
   --space-2:  0.5rem;
   --space-3:  0.75rem;
@@ -99,46 +87,38 @@ ul, ol {
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* Border Radius */
   --radius-sm:   8px;
   --radius-md:   16px;
   --radius-lg:   24px;
   --radius-xl:   32px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm:    0 1px 3px rgba(30, 26, 42, 0.04),
-                  0 1px 2px rgba(30, 26, 42, 0.06);
-  --shadow-md:    0 4px 12px rgba(30, 26, 42, 0.06),
-                  0 2px 4px rgba(30, 26, 42, 0.04);
-  --shadow-lg:    0 8px 24px rgba(30, 26, 42, 0.08),
-                  0 4px 8px rgba(30, 26, 42, 0.04);
-  --shadow-glass: 0 8px 32px rgba(30, 26, 42, 0.08),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-sm:    0 1px 3px rgba(30, 26, 42, 0.05),
+                  0 1px 2px rgba(30, 26, 42, 0.08);
+  --shadow-md:    0 4px 16px rgba(30, 26, 42, 0.07),
+                  0 2px 6px rgba(30, 26, 42, 0.05);
+  --shadow-lg:    0 12px 32px rgba(30, 26, 42, 0.10),
+                  0 4px 12px rgba(30, 26, 42, 0.06);
+  --shadow-glass: 0 8px 32px rgba(30, 26, 42, 0.10),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
-  /* Transitions */
   --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out:     cubic-bezier(0.65, 0, 0.35, 1);
   --duration-fast:   150ms;
   --duration-normal: 300ms;
   --duration-slow:   500ms;
 
-  /* Z-index */
   --z-base:    1;
   --z-above:   10;
   --z-modal:   100;
   --z-overlay: 1000;
 
-  /* Layout */
   --max-width:        430px;
   --safe-area-top:    env(safe-area-inset-top, 0px);
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
   --touch-min:        44px;
 }
 
-/* ============================================
-   Base Styles
-   ============================================ */
 body {
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -157,45 +137,104 @@ h1, h2, h3, h4 {
   line-height: var(--leading-tight);
 }
 
-/* ============================================
-   App Shell
-   ============================================ */
 .app-shell {
   max-width: var(--max-width);
   margin: 0 auto;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding-top: var(--safe-area-top);
-  padding-bottom: var(--safe-area-bottom);
-  padding-left: var(--space-5);
-  padding-right: var(--space-5);
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ============================================
-   Glassmorphism
-   ============================================ */
+.app-shell > :first-child {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-bar {
+  display: flex;
+  margin-left: calc(-1 * var(--space-6));
+  margin-right: calc(-1 * var(--space-6));
+  padding: var(--space-2) var(--space-6);
+  padding-bottom: calc(var(--space-2) + var(--safe-area-bottom));
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  flex-shrink: 0;
+}
+
+.tab-bar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: var(--space-2) 0;
+  min-height: var(--touch-min);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.tab-bar__item:active {
+  transform: scale(0.92);
+}
+
+.tab-bar__item--active {
+  color: var(--color-accent);
+}
+
+.tab-bar__fill {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.tab-bar__item--active .tab-bar__fill {
+  opacity: 0.12;
+}
+
+.tab-bar__label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.03em;
+}
+
 .glass {
-  background: var(--gradient-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.5) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-glass);
 }
 
 .glass--subtle {
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
 
-/* ============================================
-   Animations
-   ============================================ */
+.page-enter-active {
+  transition: opacity 0.15s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+}
+
 .fade-in {
   animation: fadeIn var(--duration-normal) var(--ease-out) both;
 }
@@ -247,9 +286,6 @@ h1, h2, h3, h4 {
   50%      { transform: scale(1.08); }
 }
 
-/* ============================================
-   Interactive States
-   ============================================ */
 .tap-target {
   min-height: var(--touch-min);
   min-width: var(--touch-min);
@@ -264,9 +300,6 @@ h1, h2, h3, h4 {
   transform: scale(0.95);
 }
 
-/* ============================================
-   Desktop Block Screen
-   ============================================ */
 .desktop-block {
   display: none;
 }
@@ -281,7 +314,6 @@ h1, h2, h3, h4 {
     background: #0e0a16;
   }
 
-  /* --- Blobs background --- */
   .desktop-block__bg {
     position: absolute;
     inset: -20%;
@@ -330,7 +362,6 @@ h1, h2, h3, h4 {
     animation: drift4 22s ease-in-out infinite alternate;
   }
 
-  /* --- Center content --- */
   .desktop-block__center {
     position: relative;
     z-index: 1;
@@ -403,7 +434,6 @@ h1, h2, h3, h4 {
     display: none;
   }
 
-  /* --- Drift keyframes --- */
   @keyframes drift1 {
     0%   { transform: translate(0, 0) scale(1); }
     100% { transform: translate(8vw, 6vh) scale(1.1); }
@@ -425,9 +455,6 @@ h1, h2, h3, h4 {
   }
 }
 
-/* ============================================
-   Scrollbar
-   ============================================ */
 ::-webkit-scrollbar {
   width: 4px;
 }

@@ -3,15 +3,15 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return
   }
 
-  const sessionUser = useState<{ id: string } | null>('auth-user', () => null)
+  const sessionUser = useState<{ id: string; email: string } | null>('auth-user', () => null)
 
   if (import.meta.client && sessionUser.value) {
     return to.path === '/login' ? navigateTo('/') : undefined
   }
 
-  const session = await $fetch<{ user?: { id: string } } | null>('/api/auth/get-session', {
+  const session = await $fetch<{ user?: { id: string; email: string } } | null>('/api/auth/get-session', {
     headers: import.meta.server ? useRequestHeaders(['cookie']) : undefined,
-  })
+  }).catch(() => null)
 
   if (session?.user) {
     sessionUser.value = session.user

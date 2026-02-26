@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   modules: [
     '@vite-pwa/nuxt',
@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   },
 
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       htmlAttrs: { lang: 'fr' },
       meta: [
