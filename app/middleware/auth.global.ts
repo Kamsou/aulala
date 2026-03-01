@@ -26,7 +26,13 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   if (session?.user) {
     sessionUser.value = session.user
-    return to.path === '/login' ? navigateTo('/') : undefined
+    if (to.path === '/login') {
+      return navigateTo('/')
+    }
+    if (to.path === '/onboarding') {
+      return
+    }
+    return
   }
 
   if (to.path === '/login') return

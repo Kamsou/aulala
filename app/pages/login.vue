@@ -6,11 +6,12 @@ definePageMeta({
   pageTransition: false,
 })
 
+const { show } = useToast()
+
 const step = ref<1 | 2>(1)
 const email = ref('')
 const otp = ref('')
 const loading = ref(false)
-const { show } = useToast()
 
 async function sendOtp() {
   if (!email.value) return

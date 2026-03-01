@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const showCalendar = ref(false)
-
 const {
   predictions,
   daysUntilNext,
@@ -10,6 +8,10 @@ const {
   confidence,
   currentCycleDay,
 } = useCycle()
+const { isDone: onboardingDone } = useOnboarding()
+
+const showCalendar = ref(false)
+const ready = ref(false)
 
 const isLate = computed(() => (daysUntilNext.value ?? 0) < 0)
 const displayDays = computed(() => Math.abs(daysUntilNext.value ?? 0))
@@ -46,14 +48,16 @@ const contextText = computed(() => {
 })
 
 onMounted(() => {
-  if (localStorage.getItem('auklm-onboarding-done') !== '1') {
+  if (!onboardingDone.value) {
     navigateTo('/onboarding')
+    return
   }
+  ready.value = true
 })
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center flex-1 min-h-0 pt-safe-top">
+  <div v-if="ready" class="flex flex-col items-center justify-center flex-1 min-h-0 pt-safe-top">
     <div class="flex flex-col items-center">
       <GouttyMascot :mood="gouttyMood" :size="140" class="anim-up" />
 

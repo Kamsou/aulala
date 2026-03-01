@@ -1,22 +1,13 @@
 <script setup lang="ts">
 const { toggleDate, deleteDate, isRecorded, predictions, getToday, periodDates } = useCycle()
 
-const weekdayHeaders = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
-const monthNames = MONTHS_FULL.map(capitalize)
-
-const todayStr = getToday()
-
-function isDayRecorded(date: string): boolean {
-  return isRecorded(date)
-}
-
-function isDayPredicted(date: string): boolean {
-  return predictions.value.some(p => p.date === date)
-}
-
 const now = new Date()
 const sheetMonth = ref(now.getMonth())
 const sheetYear = ref(now.getFullYear())
+
+const weekdayHeaders = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
+const monthNames = MONTHS_FULL.map(capitalize)
+const todayStr = getToday()
 
 const sheetMonthName = computed(() => `${monthNames[sheetMonth.value]} ${sheetYear.value}`)
 
@@ -28,6 +19,14 @@ const sheetStartOffset = computed(() => {
   const firstDay = new Date(sheetYear.value, sheetMonth.value, 1).getDay()
   return firstDay === 0 ? 6 : firstDay - 1
 })
+
+function isDayRecorded(date: string): boolean {
+  return isRecorded(date)
+}
+
+function isDayPredicted(date: string): boolean {
+  return predictions.value.some(p => p.date === date)
+}
 
 function sheetPrev() {
   if (sheetMonth.value === 0) {

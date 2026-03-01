@@ -5,8 +5,9 @@ definePageMeta({
   layout: false,
 })
 
-const sessionUser = useState<{ id: string; email: string } | null>('auth-user')
 const { averageCycleLength, confidence, stats } = useCycle()
+
+const sessionUser = useState<{ id: string; email: string } | null>('auth-user')
 
 const confidenceLabel = computed(() => {
   if (!confidence.value) return '--'
